@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+
+  app_proxy:
+    environment:
+      APP_HOST: kiwix-serve
+      APP_PORT: 3000
+    
+  kiwix-serve:
+    ports:
+      - 4000:8080
+    image: ghcr.io/kiwix/kiwix-serve:latest
+    volumes:
+       - ${APP_DATA_DIR}/zims:/data
+    command:
+      - '*.zim'
+    restart: unless-stopped
